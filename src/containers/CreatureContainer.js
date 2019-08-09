@@ -1,33 +1,17 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import { useApp } from "@inlet/react-pixi";
+import React, { useState } from "react";
 import { Creature } from "../components/Creature";
-import { TilingSprite } from "@inlet/react-pixi";
+import { TilingSprite, useApp, useTick } from "@inlet/react-pixi";
 import creatureSprite from "../components/creature/slime_monster_spritesheet.png";
 
 export function CreatureContainer(props) {
-  const [x, setX] = useState(20);
-  const [y, setY] = useState(20);
+  const [x, setX] = useState(props.x ? props.x : 0);
+  const [y, setY] = useState(props.y ? props.y : 0);
   const [direction, setDirection] = useState("forward");
-  const latestX = useRef(x);
-  const latestSetX= useRef(setX)
-  
 
-  useEffect(() => {
-    console.log("run effect")
-    
-    function tick(delta) {
-      console.log(latestX.current)
-      latestSetX.current(latestX.current + 1 * delta)
-      latestX.current = x;
-    }
+  useTick(delta => {
+    setX(x + 2)
+  })
 
-    props.app.ticker.add(tick);
-
-    return function cleanup() {
-      console.log("cleanEffect")
-      props.app.ticker.remove(tick)
-    }
-  }, [])
 
   return (
     <TilingSprite
