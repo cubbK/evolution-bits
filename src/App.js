@@ -1,26 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Stage } from "@inlet/react-pixi";
+import * as PIXI from 'pixi.js'
+import { Food } from "./components/Food";
+import { CreatureContainer } from "./containers/CreatureContainer";
 
-function App() {
+PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+export function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Stage options={{ backgroundColor: 0xfafafa }} width={500} height={500}>
+      <CreatureContainer />
+
+      <Food  x={50} y={50}/>
+    </Stage>
   );
 }
-
-export default App;
